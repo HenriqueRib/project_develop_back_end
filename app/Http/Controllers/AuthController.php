@@ -39,7 +39,7 @@ class AuthController extends Controller
             if ($v->fails()) {
                 return response()->json([
                     'status' => 'error',
-                    'errors' => $v->errors()
+                    'errors' => $v->errors(),
                 ], 422);
             }
             $params = $request->all();
@@ -99,7 +99,7 @@ class AuthController extends Controller
         }
     }
 
-    public function user(Request $request)
+    public function me(Request $request)
     {
         try {
             $user = User::find(Auth::user()->id);
@@ -136,6 +136,13 @@ class AuthController extends Controller
             Auth::logout();
             return response()->json(['message' => 'Logout completed successfully.']);
         } catch (\Exception $e) {
+            $errorData = [
+                'arquivo' => $e->getFile(),
+                'linha' => $e->getLine(),
+                'erro' => $e->getMessage(),
+              ];
+              Log::channel("auth")->error("Erro Auth logout", $errorData);
+             
             return response()->json(['status' => 'error', 'message' => $errorData], 500);
         }
     }

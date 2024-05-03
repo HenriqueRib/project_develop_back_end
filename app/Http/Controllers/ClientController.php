@@ -10,7 +10,7 @@ class ClientController extends Controller
     public function home(Request $request)
     {
         try {
-            return response()->json(['message' => 'Welcome']);
+            return response()->json(['message' => 'logged out']);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => $errorData], 500);
         }
