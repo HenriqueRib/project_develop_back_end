@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+            'expiry_in_minutes' => 60 * 60 * 40,
+          ],
     ],
 
     /*
